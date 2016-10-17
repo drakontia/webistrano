@@ -1,13 +1,14 @@
 source "https://rubygems.org"
 
-gem "rails", git: "git://github.com/rails/rails.git", branch: "3-2-stable"
+gem "rails", "~>4"
 
 gem "exception_notification"
 
 gem "capistrano"
+gem "sshkit"
 gem "open4"
 gem "syntax"
-gem "version_fu", :github => "jmckible/version_fu"
+gem "version_fu"
 gem "devise"
 gem "devise-encryptable"
 
