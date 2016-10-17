@@ -4,10 +4,11 @@ vendor/bundle
 config/Gemfile.extras
 
 tmp/*
-log/*.log
+log/*.log*
 db/*.sqlite3
 config/*.yml
 config/webistrano_config.rb
+.ruby-version
 
 *~
 .DS_Store
