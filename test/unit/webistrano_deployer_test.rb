@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'mocha/test_unit'
 
 class Webistrano::DeployerTest < ActiveSupport::TestCase
 
@@ -46,11 +47,11 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     #
 
     # Logger stubing
-    mock_cap_logger = mock
+    mock_cap_logger = mock('mock_cap_logger')
     mock_cap_logger.expects(:level=).with(3)
 
     # config stubbing
-    mock_cap_config = mock
+    mock_cap_config = mock('mock_cap_config')
     mock_cap_config.stubs(:logger).returns(mock_cap_logger)
     mock_cap_config.stubs(:logger=)
     mock_cap_config.stubs(:load)
@@ -128,11 +129,11 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     #
 
     # Logger stubing
-    mock_cap_logger = mock
+    mock_cap_logger = mock('mock_cap_logger')
     mock_cap_logger.expects(:level=).with(3)
 
     # config stubbing
-    mock_cap_config = mock
+    mock_cap_config = mock('mock_cap_config')
     mock_cap_config.stubs(:logger).returns(mock_cap_logger)
     mock_cap_config.stubs(:logger=)
     mock_cap_config.stubs(:load)
@@ -182,11 +183,11 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     #
 
     # Logger stubing
-    mock_cap_logger = mock
+    mock_cap_logger = mock('mock_cap_logger')
     mock_cap_logger.expects(:level=).with(3)
 
     # config stubbing
-    mock_cap_config = mock
+    mock_cap_config = mock('mock_cap_config')
     mock_cap_config.stubs(:logger).returns(mock_cap_logger)
     mock_cap_config.stubs(:logger=)
     mock_cap_config.stubs(:load)
@@ -291,9 +292,8 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     #
 
     # Logger stubing
-    mock_cap_logger = mock 'mock_cap_logger' do
-      expects(:level=).with(3)
-    end
+    mock_cap_logger = mock('mock_cap_logger')
+    mock_cap_logger.expects(:level=).with(3)
 
     mock_cap_config = mock 'mock_cap_config' do
       # config stubbing
@@ -336,17 +336,17 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     @deployment = FactoryGirl.create(:deployment, :stage => @stage, :task => 'deploy:update')
 
     # mocks
-    mock_namespace = mock
+    mock_namespace = mock('mock_namespace')
     mock_namespace.stubs(:default_task)
     mock_namespace.stubs(:search_task)
 
-    mock_task = mock
+    mock_task = mock('mock_task')
     mock_task.stubs(:namespace).returns(mock_namespace)
     mock_task.stubs(:body).returns(Proc.new{ Proc.new{} })
     mock_task.stubs(:fully_qualified_name).returns('deploy:update')
     mock_task.stubs(:name).returns('deploy:update')
 
-    mock_cap_config = Webistrano::Configuration.new
+    mock_cap_config = mock('mock_cap_config')
     mock_cap_config.logger = Webistrano::Logger.new(@deployment)
     mock_cap_config.expects(:find_task).returns(mock_task)
 
@@ -445,7 +445,7 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     db_role = FactoryGirl.create(:role, :name => 'db', :host => host, :stage => stage, :primary => 1)
 
     # mock Open4 to return an error
-    mock_status = mock
+    mock_status = mock('mock_status')
     mock_status.expects(:exitstatus).returns(1)
     Open4.expects(:popen4).returns(mock_status)
 
@@ -498,11 +498,11 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     @project.save!
 
     # Logger stubing
-    mock_cap_logger = mock
+    mock_cap_logger = mock('mock_cap_logger')
     mock_cap_logger.expects(:level=).with(3)
 
     # config stubbing
-    mock_cap_config = mock
+    mock_cap_config = mock('mock_cap_config')
     mock_cap_config.stubs(:trigger)
     mock_cap_config.stubs(:logger).returns(mock_cap_logger)
     mock_cap_config.stubs(:logger=)
@@ -546,11 +546,11 @@ class Webistrano::DeployerTest < ActiveSupport::TestCase
     assert_equal [@stage], recipe_2.stages
 
     # Logger stubing
-    mock_cap_logger = mock
+    mock_cap_logger = mock('mock_cap_logger')
     mock_cap_logger.expects(:level=).with(3)
 
     # config stubbing
-    mock_cap_config = mock
+    mock_cap_config = mock('mock_ca_config')
     mock_cap_config.stubs(:trigger)
     mock_cap_config.stubs(:logger).returns(mock_cap_logger)
     mock_cap_config.stubs(:logger=)

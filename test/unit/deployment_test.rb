@@ -340,7 +340,7 @@ class DeploymentTest < ActiveSupport::TestCase
     deployment = FactoryGirl.create(:deployment, :stage => stage, :completed_at => nil)
     assert deployment.running?
 
-    stage.lock
+    Stage.update(stage.id, locked: 1)
     
     deployment.complete_with_error!
     
@@ -353,7 +353,7 @@ class DeploymentTest < ActiveSupport::TestCase
     deployment = FactoryGirl.create(:deployment, :stage => stage, :completed_at => nil)
     assert deployment.running?
 
-    stage.lock
+    Stage.update(stage.id, locked: 1)
     
     deployment.complete_successfully!
     
@@ -365,7 +365,7 @@ class DeploymentTest < ActiveSupport::TestCase
     stage = FactoryGirl.create(:role, :name => 'app').stage
     deployment = FactoryGirl.create(:deployment, :stage => stage, :completed_at => nil, :pid => 919999)
     assert deployment.running?
-    stage.lock
+    Stage.update(stage.id, locked: 1)
     
     Process.stubs(:kill)
     

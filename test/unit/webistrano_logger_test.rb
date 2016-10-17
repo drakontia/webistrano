@@ -63,11 +63,11 @@ class Webistrano::LoggerTest < ActiveSupport::TestCase
   end
   
   test "do_no_log_passwords" do
-    pw_config = @stage_with_role.configuration_parameters.find_or_create_by_name('scm_password')
+    pw_config = @stage_with_role.configuration_parameters.find_or_create_by(name: 'scm_password')
     pw_config.value = 'my_secret'
     pw_config.save!
     
-    pw_prompt_config = @stage_with_role.configuration_parameters.find_or_create_by_name('password')
+    pw_prompt_config = @stage_with_role.configuration_parameters.find_or_create_by(name: 'password')
     pw_prompt_config.prompt_on_deploy = 1
     pw_prompt_config.save!
     

@@ -13,7 +13,7 @@ class NotificationTest < ActionMailer::TestCase
     assert stage.deployment_possible?, stage.deployment_problems.inspect
     deployment = FactoryGirl.create(:deployment, :stage => stage, :task => 'deploy')
     
-    email = Notification.deployment(deployment, 'foo@bar.com').deliver
+    email = Notification.deployment(deployment, 'foo@bar.com').deliver_now
     assert !ActionMailer::Base.deliveries.empty?
     
     assert_equal ['foo@bar.com'], email.to
