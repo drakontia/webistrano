@@ -1,6 +1,6 @@
 <div id="projects_open_content" style="<%= show_if_opened(status) %>">
   <% if Project.count > 0 %>
-    <% for project in Project.find(:all, :order => "name ASC") %>
+    <% for project in Project.order(name: :asc) %>
       <a href="<%= project_path(project) %>" class="menu_link <%= active_link_class(project) %>" title="<%= project.name %>">
         <div class="menu_icons">
           <%= image_tag('peritor_theme/arrow_menu_right.gif', :width => '20', :height => '20', :border => '0', :style => "#{do_not_show_stages_of_project(project)}", :id => "#{dom_id(project)}_arrow_right", :onclick => "open_menu('#{dom_id(project)}'); return false;" )%>

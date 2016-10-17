@@ -1,7 +1,7 @@
 class StageConfigurationsController < ApplicationController
   respond_to :html, :xml, :json
   before_filter :load_stage
-  
+
   # GET /project/1/stage/1/stage_configurations/1
   def show
     @configuration = @stage.configuration_parameters.find(params[:id])
@@ -22,7 +22,7 @@ class StageConfigurationsController < ApplicationController
 
   # POST /project/1/stage/1/stage_configurations
   def create
-    @configuration = @stage.configuration_parameters.build(params[:configuration])
+    @configuration = @stage.configuration_parameters.build(configuration_params)
 
     if @configuration.save
       flash[:notice] = 'StageConfiguration was successfully created.'
@@ -36,7 +36,7 @@ class StageConfigurationsController < ApplicationController
   def update
     @configuration = @stage.configuration_parameters.find(params[:id])
 
-    if @configuration.update_attributes(params[:configuration])
+    if @configuration.update_attributes(configuration_params)
       flash[:notice] = 'StageConfiguration was successfully updated.'
       respond_with(@configuration, :location => [@project, @stage])
     else
@@ -51,4 +51,11 @@ class StageConfigurationsController < ApplicationController
 
     respond_with(@configuration, :location => [@project, @stage], :notice => 'StageConfiguration was successfully deleted.')
   end
+
+private
+
+  def configuration_params
+    params.require(:configuration).permit(:name, :value, :type)
+  end
+
 end

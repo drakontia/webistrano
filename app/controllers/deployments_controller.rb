@@ -11,7 +11,7 @@ class DeploymentsController < ApplicationController
 
   # GET /projects/1/stages/1/deployments/1
   def show
-    @deployment = @stage.deployments.find(params[:id])
+    @deployment = @stage.deployments.find_by(id: params[:id])
     set_auto_scroll
     respond_with(@deployment) do |format|
       format.js { render :partial => 'status.html.erb' }
@@ -50,7 +50,7 @@ class DeploymentsController < ApplicationController
 
   # GET /projects/1/stages/1/deployments/latest
   def latest
-    @deployment = @stage.deployments.find(:first, :order => "created_at desc")
+    @deployment = @stage.deployments.order(created_at: :desc).limit(1)
     if @deployment
       redirect_to([@project, @stage, @deployment])
     else
@@ -60,7 +60,7 @@ class DeploymentsController < ApplicationController
 
   # POST /projects/1/stages/1/deployments/1/cancel
   def cancel
-    @deployment = @stage.deployments.find(:first, :order => "created_at desc")
+    @deployment = @stage.deployments.order(created_at: :desc).limit(1)
 
     begin
       @deployment.cancel!

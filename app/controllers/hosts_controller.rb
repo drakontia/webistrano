@@ -4,13 +4,13 @@ class HostsController < ApplicationController
 
   # GET /hosts
   def index
-    @hosts = Host.find(:all, :order => 'name ASC')
+    @hosts = Host.order(name: :asc)
     respond_with(@hosts)
   end
 
   # GET /hosts/1
   def show
-    @host = Host.find(params[:id])
+    @host = Host.find_by(id: params[:id])
 
     # TODO - Why not in the model?
     @stages = @host.stages.uniq.sort_by{|x| x.project.name}
@@ -26,13 +26,13 @@ class HostsController < ApplicationController
 
   # GET /hosts/1;edit
   def edit
-    @host = Host.find(params[:id])
+    @host = Host.find_by(id: params[:id])
     respond_with(@host)
   end
 
   # POST /hosts
   def create
-    @host = Host.unscoped.where(params[:host]).first_or_create
+    @host = Host.unscoped.where(host_params).first_or_create
 
     if @host
       flash[:notice] = 'Host was successfully created.'
@@ -44,9 +44,9 @@ class HostsController < ApplicationController
 
   # PUT /hosts/1
   def update
-    @host = Host.find(params[:id])
+    @host = Host.find_by(id: params[:id])
 
-    if @host.update_attributes(params[:host])
+    if @host.update_attributes(host_params)
       flash[:notice] = 'Host was successfully updated.'
       respond_with(@host, :location => @host)
     else
@@ -56,9 +56,15 @@ class HostsController < ApplicationController
 
   # DELETE /hosts/1
   def destroy
-    @host = Host.find(params[:id])
+    @host = Host.find_by(id: params[:id])
     @host.destroy
 
     redirect_to hosts_path, :notice => 'Host was successfully deleted.'
+  end
+
+private
+
+  def host_params
+    params.require(:host).permit(:name)
   end
 end

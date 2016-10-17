@@ -3,7 +3,7 @@ end
 
 class ConvertWwwRolesToWeb < ActiveRecord::Migration
   def self.up
-    Role.update_all("name = 'web'", "name = 'www'")
+    Role.where(name: 'www').update_all("name = 'web'")
   end
 
   def self.down

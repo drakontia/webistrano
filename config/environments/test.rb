@@ -8,7 +8,7 @@ Webistrano::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
   # Log error messages when you accidentally call methods on nil
@@ -30,11 +30,24 @@ Webistrano::Application.configure do
   config.action_mailer.delivery_method = :test
 
   # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+  #config.active_record.mass_assignment_sanitizer = :strict
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
   # We run test only with en locale
   config.i18n.default_locale = :en
+
+  # DEPRECATION WARNING: The configuration option `config.serve_static_assets`
+  # has been renamed to `config.serve_static_files` to clarify its role
+  # (it merely enables serving everything in the `public` folder
+  # and is unrelated to the asset pipeline).
+  config.eager_load = false
+
+  # DEPRECATION WARNING: You did not specify a value
+  # for the configuration option `active_support.test_order`.
+  # In Rails 5, the default value of this option
+  # will change from `:sorted` to `:random`.
+  config.active_support.test_order = :sorted
+
 end

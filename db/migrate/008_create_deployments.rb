@@ -9,7 +9,7 @@ class CreateDeployments < ActiveRecord::Migration
       t.column :updated_at, :datetime
       t.column :completed_at, :datetime
     end
-    
+
     create_table :deployments_roles, :id => false do |t|
       t.column :deployment_id, :integer
       t.column :role_id, :integer

@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
 
   # GET /recipes
   def index
-    @recipes = Recipe.find(:all)
+    @recipes = Recipe.all
 
     respond_to do |format|
       format.html # index.rhtml
@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
 
   # POST /recipes
   def create
-    @recipe = Recipe.new(params[:recipe] || {})
+    @recipe = Recipe.new([recipe_params] || {})
 
     respond_to do |format|
       if @recipe.save
@@ -52,10 +52,10 @@ class RecipesController < ApplicationController
 
   # PUT /recipes/1
   def update
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find_by(id: params[:id])
 
     respond_to do |format|
-      if @recipe.update_attributes(params[:recipe] || {})
+      if @recipe.update_attributes(recipe_params || {})
         flash[:notice] = 'Recipe was successfully updated.'
         format.html { redirect_to recipe_url(@recipe) }
         format.xml  { head :ok }
@@ -68,7 +68,7 @@ class RecipesController < ApplicationController
 
   # DELETE /recipes/1
   def destroy
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find_by(id: params[:id])
     @recipe.destroy
     flash[:notice] = 'Recipe was successfully deleted.'
 
@@ -79,7 +79,7 @@ class RecipesController < ApplicationController
   end
 
   def preview
-    @recipe = Recipe.new(:body => params[:recipe])
+    @recipe = Recipe.new(:body => recipe_params)
     respond_to do |format|
       format.html { 
         render :partial => "preview", :locals => {:recipe => @recipe}
@@ -90,10 +90,10 @@ class RecipesController < ApplicationController
 private
 
   def find_recipe_with_version
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find_by(id: params[:id])
 
     unless params[:version].blank?
-      recipe_version = @recipe.find_version(params[:version])
+      recipe_version = @recipe.find_by(version: params[:version])
       if recipe_version
         @recipe.version = recipe_version.version
         @recipe.name = recipe_version.name
@@ -104,4 +104,9 @@ private
 
     @recipe
   end
+
+  def recipe_params
+    params.require(:recipe).permit(:name, :body, :description, :version)
+  end
+
 end

@@ -38,7 +38,7 @@ class StagesController < ApplicationController
   # POST /projects/1/stages
   def create
     @stage = Stage.unscoped.where(
-      params[:stage].merge(:project_id => current_project.id)
+      stage_params.merge(:project_id => current_project.id)
     ).first_or_create
 
     if @stage
@@ -54,7 +54,7 @@ class StagesController < ApplicationController
   def update
     @stage = current_project.stages.find(params[:id])
 
-    if @stage.update_attributes(params[:stage])
+    if @stage.update_attributes(stage_params)
       flash[:notice] = 'Stage was successfully updated.'
       respond_with(@stage, :location => [current_project, @stage])
     else
@@ -98,6 +98,10 @@ class StagesController < ApplicationController
         format.xml  { render :xml => @stage.recipes.to_xml }
       end
     end
+  end
+
+  def stage_params
+    params.require(:stage).permit(:name,:alert_emails)
   end
 
 end

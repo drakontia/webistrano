@@ -6,19 +6,19 @@ class ProjectsController < ApplicationController
 
   # GET /projects/dashboard
   def dashboard
-    @deployments = Deployment.find(:all, :limit => 10, :order => 'created_at DESC')
+    @deployments = Deployment.order(created_at: :desc).limit(10)
     respond_with(@deployments)
   end
 
   # GET /projects
   def index
-    @projects = Project.find(:all, :order => 'name ASC')
+    @projects = Project.order(name: :asc)
     respond_with(@projects)
   end
 
   # GET /projects/1
   def show
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id])
     respond_with(@project)
   end
 
@@ -37,13 +37,13 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id])
     respond_with @project
   end
 
   # POST /projects
   def create
-    @project = Project.unscoped.where(params[:project]).first_or_create
+    @project = Project.unscoped.where(project_params).first_or_create
 
     if load_clone_original
       action_to_render = 'clone'
@@ -66,9 +66,9 @@ class ProjectsController < ApplicationController
 
   # PUT /projects/1
   def update
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id])
 
-    if @project.update_attributes(params[:project])
+    if @project.update_attributes(project_params)
       flash[:notice] = 'Project was successfully updated.'
       respond_with(@project, :location => @project)
     else
@@ -78,7 +78,7 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1
   def destroy
-    @project = Project.find(params[:id])
+    @project = Project.find_by(id: params[:id])
     @project.destroy
 
     redirect_to projects_path, :notice => 'Project was successfully deleted.'
@@ -103,4 +103,9 @@ private
       false
     end
   end
+
+  def project_params
+    params.require(:project).permit(:id, :name, :description, :template)
+  end
+
 end

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     if @user.save
       flash[:notice] = "Account created"
@@ -29,26 +29,26 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
     @deployments = @user.deployments.recent
     respond_with(@user)
   end
 
   # GET /users/edit/1
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
     respond_with(@user)
   end
 
   # PUT /users/1
   def update
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
 
     unless current_user.admin?
       params[:user].delete(:admin)
     end
 
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       flash[:notice] = 'User was successfully updated.'
       respond_with(@user, :location => @user)
     else
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
     @user.destroy
 
     redirect_to users_path, :notice => 'User was successfully deleted.'
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   # POST /users/1
   def enable
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
 
     if @user.admin? && User.admins.count == 1
       flash[:notice] = 'Can not disable last admin user.'
@@ -85,14 +85,14 @@ class UsersController < ApplicationController
 
   # GET /users/1/deployments
   def deployments
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
     @deployments = @user.deployments
 
     respond_with(@deployments)
   end
 
 private
-  
+
   def ensure_admin_or_my_entry
     if current_user.admin? || current_user.id == User.find(params[:id]).id
       return true
@@ -100,6 +100,10 @@ private
       redirect_to root_url
       return false
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:login, :email, :password, :password_confirmation, :remember_me, :time_zone, :tz, :admin)
   end
 
 end

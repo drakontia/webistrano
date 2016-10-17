@@ -15,23 +15,20 @@ class Deployment < ActiveRecord::Base
   belongs_to :stage
   belongs_to :user
   has_and_belongs_to_many :roles
-  
+
   validates :task, :stage, :user, :presence => true
   validates :task, :length => {:maximum => 250}
   validates :status, :inclusion => {:in => STATUS_VALUES}
-  validate :guard_readiness_of_stage, :on => :create
-  
+  #validate :guard_readiness_of_stage, :on => :create # TODO
+
   serialize :excluded_host_ids
-  
-  attr_accessible :task, :prompt_config, :description, :excluded_host_ids, :override_locking
-    
+
   # given configuration hash on create in order to satisfy prompt configurations
   attr_accessor :prompt_config
   attr_accessor :override_locking
-  
+
   after_create :add_stage_roles
-   
-    
+
   def self.lock_and_fire(&block)
     transaction do
       d = Deployment.new
@@ -47,16 +44,16 @@ class Deployment < ActiveRecord::Base
     Rails.logger.debug "DEPLOYMENT: could not fire deployment: #{e.inspect} #{e.backtrace.join("\n")}"
     false
   end
-  
+
   def override_locking?
     @override_locking.to_i == 1
   end
-  
+
   def prompt_config
     @prompt_config = @prompt_config || {}
     @prompt_config
   end
-  
+
   def effective_and_prompt_config
     @effective_and_prompt_config = @effective_and_prompt_config || self.stage.effective_configuration.collect do |conf|
       if prompt_config.has_key?(conf.name)
@@ -65,33 +62,33 @@ class Deployment < ActiveRecord::Base
       conf
     end
   end
-  
+
   def add_stage_roles
     self.stage.roles.each do |role|
       self.roles << role
     end
   end
-  
+
   def completed?
     !self.completed_at.blank?
   end
-  
+
   def success?
     self.status == STATUS_SUCCESS
   end
-  
+
   def failed?
     self.status == STATUS_FAILED
   end
-  
+
   def canceled?
     self.status == STATUS_CANCELED
   end
-  
+
   def running?
     self.status == STATUS_RUNNING
   end
-  
+
   def status_in_html
     "<span class='deployment_status_#{self.status.gsub(/ /, '_')}'>#{self.status}</span>"
   end
@@ -100,27 +97,27 @@ class Deployment < ActiveRecord::Base
     save_completed_status!(STATUS_FAILED)
     notify_per_mail
   end
-  
+
   def complete_successfully!
     save_completed_status!(STATUS_SUCCESS)
     notify_per_mail
   end
-  
+
   def complete_canceled!
     save_completed_status!(STATUS_CANCELED)
     notify_per_mail
   end
-  
+
   # deploy through Webistrano::Deployer in background (== other process)
   # TODO - at the moment `Unix &` hack
-  def deploy_in_background! 
+  def deploy_in_background!
     unless Rails.env.test?
       Rails.logger.info "Calling other ruby process in the background in order to deploy deployment #{self.id} (stage #{self.stage.id}/#{self.stage.name})"
 
       system("sh -c \"cd #{Rails.root} && rails runner -e #{Rails.env} ' deployment = Deployment.find(#{self.id}); deployment.prompt_config = #{self.prompt_config.inspect.gsub('"', '\"')} ; Webistrano::Deployer.new(deployment).invoke_task! ' >> #{Rails.root}/log/#{Rails.env}.log 2>&1\" &")
     end
   end
-  
+
   # returns an unsaved, new deployment with the same task/stage/description
   def repeat
     Deployment.new.tap do |d|
@@ -130,7 +127,7 @@ class Deployment < ActiveRecord::Base
       d.description += self.description
     end
   end
-  
+
   # returns a list of hosts that this deployment
   # will deploy to. This computed out of the list
   # of given roles and the excluded hosts
@@ -138,14 +135,14 @@ class Deployment < ActiveRecord::Base
     all_hosts = self.roles.map(&:host).uniq
     return all_hosts - self.excluded_hosts
   end
-  
+
   # returns a list of roles that this deployment
   # will deploy to. This computed out of the list
   # of given roles and the excluded hosts
   def deploy_to_roles(base_roles=self.roles)
-    base_roles.dup.delete_if{|role| self.excluded_hosts.include?(role.host) }
+    base_roles.clone.to_a.delete_if{|role| self.excluded_hosts.include?(role.host) }
   end
-  
+
   # a list of all excluded hosts for this deployment
   # see excluded_host_ids
   def excluded_hosts
@@ -155,36 +152,36 @@ class Deployment < ActiveRecord::Base
     end
     res.compact
   end
-  
+
   def excluded_host_ids
     self['excluded_host_ids'].blank? ? [] : self['excluded_host_ids']
   end
-  
+
   def excluded_host_ids=(val)
     val = [val] unless val.is_a?(Array)
     self['excluded_host_ids'] = val.map(&:to_i)
   end
-  
+
   def cancelling_possible?
     !self.pid.blank? && !completed?
   end
-  
+
   def cancel!
     unless cancelling_possible?
       raise "Canceling not possible: Either no PID or already completed"
     end
-    
+
     Process.kill("SIGINT", self.pid)
     sleep 2
     Process.kill("SIGKILL", self.pid) rescue nil # handle the case that we killed the process the first time
-    
+
     complete_canceled!
   end
-  
+
   def clear_lock_error
     self.errors.delete('lock')
   end
-  
+
 protected
 
   def save_completed_status!(status)
@@ -193,17 +190,17 @@ protected
     end
 
     transaction do
-      stage = Stage.find(self.stage_id, :lock => true)
-      stage.unlock
+      Stage.update(self.stage_id, locked: 0)
+      Stage.update(self.stage_id, locked_by_deployment_id: nil)
       self.status = status
       self.completed_at = Time.now
       self.save!
     end
   end
-  
+
   def notify_per_mail
     self.stage.emails.each do |email|
-      Notification.deployment(self, email).deliver
+      Notification.deployment(self, email).deliver_now
     end
   end
 
@@ -227,7 +224,7 @@ private
         errors.add('lock', 'The stage is locked')
       end
 
-      if self.stage.present? and self.excluded_host_ids.present? and deploy_to_roles(self.stage.roles).blank?
+      if self.stage.present? and self.excluded_host_ids.present? and self.deploy_to_roles(self.stage.roles).blank?
         errors.add('base', "You cannot exclude all hosts.")
       end
     end

@@ -4,89 +4,86 @@ class Role < ActiveRecord::Base
   belongs_to :stage
   belongs_to :host
   has_and_belongs_to_many :deployments
-  
+
   validates :stage, :host, :presence => true
   validates :name, :presence => true, :length => {:maximum => 250}, :uniqueness => {:scope => [:host_id, :stage_id, :ssh_port], :message => 'already used with this host.'}
   validates :primary, :presence => true, :inclusion => {:in => 0..1}
   validates :no_release, :presence => true, :inclusion => {:in => 0..1}
   validates :no_symlink, :presence => true, :inclusion => {:in => 0..1}
-  
-  attr_accessible :name, :primary, :host_id, :no_release, :no_symlink, :ssh_port, :custom_name
-  
+
   attr_accessor :custom_name
-  
+
   before_validation :set_name_from_custom_name
-  
-  
+
   def custom_name
     if @custom_name.blank? && self.custom_name?
       @custom_name = self.name
     end
     @custom_name
   end
-    
+
   def custom_name?
     return false if self.name.blank?
     !DEFAULT_NAMES.include?(self.name)
   end
-  
+
   def primary?
     self.primary.to_i == 1
   end
-  
+
   def set_as_primary!
     self.primary = 1
     self.save!
   end
-  
+
   def unset_as_primary!
     self.primary = 0
     self.save!
   end
-  
+
   def no_release?
     self.no_release.to_i == 1
   end
-  
+
   def set_no_release!
     self.no_release = 1
     self.save!
   end
-  
+
   def unset_no_release!
     self.no_release = 0
     self.save!
   end
-    
+
   def no_symlink?
     self.no_symlink.to_i == 1
   end
-  
+
   def set_no_symlink!
     self.no_symlink = 1
     self.save!
   end
-  
+
   def unset_no_symlink!
     self.no_symlink = 0
     self.save!
   end
-  
+
   # tells if this role had a successful setup
   def setup_done?
     deployed_at_least_once? && self.deployments.any?{|x| Deployment::SETUP_TASKS.include?(x.task) && x.success? }
   end
-  
+
   # tells if this role had a successful deployment (deploy)
   def deployed?
     deployed_at_least_once? && self.deployments.any?{|x| Deployment::DEPLOY_TASKS.include?(x.task) && x.success? }
   end
-  
+
   # tells if this role had any deployment at all
   def deployed_at_least_once?
     !self.deployments.empty?
   end
-  
+
   def status
     if !self.deployed_at_least_once? || (!self.deployed? && !self.setup_done? )
       'blank'
@@ -100,11 +97,11 @@ class Role < ActiveRecord::Base
       end
     end
   end
-  
+
   def status_in_html
     "<span class='role_status_#{self.status.gsub(/ /, '_')}'>#{self.status}</span>"
   end
-  
+
   def role_attribute_hash
     role_attr = {}
     if self.primary?
@@ -118,7 +115,7 @@ class Role < ActiveRecord::Base
     end
     role_attr
   end
-    
+
   def hostname_and_port
     if self.ssh_port.blank?
       self.host.name
@@ -126,7 +123,7 @@ class Role < ActiveRecord::Base
       "#{self.host.name}:#{self.ssh_port}"
     end
   end
- 
+
 private
 
   def set_name_from_custom_name

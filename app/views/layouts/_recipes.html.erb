@@ -1,6 +1,6 @@
 <div id="recipes_open_content" style="<%= show_if_opened(status) %>">
   <% if Recipe.count > 0 %>
-    <% for recipe in Recipe.find(:all, :order => "name ASC") %>
+    <% for recipe in Recipe.order(name: :asc) %>
       <a href="<%= recipe_path(recipe) %>" class="menu_link <%= active_link_class(recipe) %>" title="<%= recipe.name %>">
 		    <div class="menu_link_title">
 		      <%= recipe.name %>

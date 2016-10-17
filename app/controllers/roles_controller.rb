@@ -2,7 +2,7 @@ class RolesController < ApplicationController
   respond_to :html, :xml, :json
   before_filter :load_stage
   before_filter :load_host_choices, :only => [:new, :edit, :update, :create]
-  
+
   # GET /projects/1/stages/1/roles/1
   def show
     @role = @stage.roles.find(params[:id])
@@ -25,10 +25,10 @@ class RolesController < ApplicationController
   # POST /projects/1/stages/1/roles
   def create
     @role = Role.unscoped.where(
-      :name     => params[:role][:name],
-      :host_id  => params[:role][:host_id],
+      :name     => role_params[:name],
+      :host_id  => role_params[:host_id],
       :stage_id => @stage.id
-    ).first_or_create(params[:role])
+    ).first_or_create(role_params)
 
     if @role
       @role.save
@@ -43,7 +43,7 @@ class RolesController < ApplicationController
   def update
     @role = @stage.roles.find(params[:id])
 
-    if @role.update_attributes(params[:role])
+    if @role.update_attributes(role_params)
       flash[:notice] = 'Role was successfully updated.'
       respond_with(@role, :location => [@project, @stage])
     else
@@ -58,11 +58,15 @@ class RolesController < ApplicationController
 
     respond_with(@role, :location => [@project, @stage], :notice => 'Role was successfully deleted.')
   end
-  
+
 private
 
   def load_host_choices
     @host_choices = Host.order("name ASC").collect {|h| [ h.name, h.id ] }
   end
-  
+
+  def role_params
+    params.require(:role).permit(:name, :primary, :host_id, :no_release, :no_symlink, :ssh_port, :custom_name)
+  end
+
 end
