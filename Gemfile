@@ -15,6 +15,10 @@ gem "devise-encryptable"
 group :development do
   gem "thin"
 
+  gem "capistrano-rails"
+  gem "capistrano-rbenv"
+  gem "capistrano-bundler"
+  gem "capistrano-passenger"
   gem "pry"
   gem "pry-rails"
 end
