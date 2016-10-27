@@ -2,7 +2,7 @@
 
 body {
 	background-color: #F0F0F0;
-	background: url(peritor_theme/background.gif) repeat;
+	background: image-url(peritor_theme/background.gif) repeat;
   background-attachment: fixed;
 	font-family: Verdana, sans-serif;
 	line-height: 16px;
@@ -100,14 +100,14 @@ legend {
 #app_top {
 	margin: 0 auto;
 	width: 950px;
-	background: url(peritor_theme/background_app.png) top no-repeat;
+	background: imgae-image-url(peritor_theme/background_app.png) top no-repeat;
 }
 
 #app_bottom {
 	margin: 0 auto;
 	width: 950px;
   height: 50px;
-	background: url(peritor_theme/background_app.png) bottom no-repeat;
+	background: image-url(peritor_theme/background_app.png) bottom no-repeat;
 }
 
 #header {
@@ -155,15 +155,15 @@ legend {
 }
 
 .deployment_status {
-  width: 212px; 
-  border-top: 1px solid #CCCCCC; 
-  margin-top: 20px; 
-  padding: 10px 0px 0px 0px; 
+  width: 212px;
+  border-top: 1px solid #CCCCCC;
+  margin-top: 20px;
+  padding: 10px 0px 0px 0px;
   text-align: center;
 }
 
 .deployment_block {
-  background: url(peritor_theme/deployment_block.gif) top no-repeat;
+  background: image-url(peritor_theme/deployment_block.gif) top no-repeat;
   width: 619px;
   padding: 12px 6px;
   height: 85px;
@@ -191,7 +191,7 @@ legend {
 
 .menu_box_header {
 	height: 23px;
-	background: url(peritor_theme/menu_top.gif) repeat-x;	
+	background: image-url(peritor_theme/menu_top.gif) repeat-x;	
 }
 
 .menu_box_arrow {
@@ -214,7 +214,7 @@ legend {
 .menu_box_footer {
 	width: 169px;
 	height: 8px;
-	background: url(peritor_theme/menu_bottom.gif) top repeat-x;	
+	background: image-url(peritor_theme/menu_bottom.gif) top repeat-x;	
 }
 
 .menu_item{
@@ -286,13 +286,13 @@ a.active_menu_link:hover {
 }
 
 a.menu_link_new {
-	background: url(peritor_theme/arrow_content.gif) left no-repeat;	
+	background: image-url(peritor_theme/arrow_content.gif) left no-repeat;	
 	background-position: 29px 4px;
 	padding-left: 13px;
 }
 
 a.menu_link_create {
-	background: url(peritor_theme/arrow_content.gif) left no-repeat;	
+	background: image-url(peritor_theme/arrow_content.gif) left no-repeat;	
 	background-position: 8px 4px;
 	padding-left: 13px;
 }
@@ -301,18 +301,18 @@ a.menu_link_create {
 /* CONTENT LINKS */
 
 a.arrow_link {
-	background: url(peritor_theme/arrow_content.gif) left no-repeat;	
+	background: image-url(peritor_theme/arrow_content.gif) left no-repeat;	
 	background-position: 0px 2px;
 	padding-left: 14px;
 }
 
 a.arrow_link_big {
-	background: url(peritor_theme/arrow_content_big.gif) left no-repeat;	
+	background: image-url(peritor_theme/arrow_content_big.gif) left no-repeat;	
 	padding-left: 14px;
 	font-size: 17px;
 }
 
-/* BOX grey*/ 
+/* BOX grey*/
 
 div.box {
   float: left;
@@ -322,7 +322,7 @@ div.box_top {
   margin-top: 6px;
   height: 20px;
   width: 387px;
-  background: url(peritor_theme/box_grey.gif) top no-repeat;
+  background: image-url(peritor_theme/box_grey.gif) top no-repeat;
 }
 
 div.box_middle {
@@ -330,7 +330,7 @@ div.box_middle {
   width: 352px;
   min-height: 113px;
   *height: 113px;
-  background: url(peritor_theme/box_grey.gif) center no-repeat;
+  background: image-url(peritor_theme/box_grey.gif) center no-repeat;
 }
 
 div.box_middle p {
@@ -340,31 +340,31 @@ div.box_middle p {
 div.box_bottom {
   height: 20px;
   width: 387px;
-  background: url(peritor_theme/box_grey.gif) bottom no-repeat;
+  background: image-url(peritor_theme/box_grey.gif) bottom no-repeat;
 }
 
 
-/* BOX Special */ 
+/* BOX Special */
 
 
 div.action_box{
   float: right;
   width: 274px;
   margin-left: 10px;
-  margin-top: 0px; 
+  margin-top: 0px;
 }
 
 div.special_box{
   float: right;
   margin-right: -6px;
   *margin-right: 0px;
-  background: url(peritor_theme/box_light.gif) center no-repeat;
+  background: image-url(peritor_theme/box_light.gif) center no-repeat;
 }
 
 div.special_box_top {
   height: 12px;
   width: 270px;
-  background: url(peritor_theme/box_light.gif) top no-repeat;
+  background: image-url(peritor_theme/box_light.gif) top no-repeat;
 
 }
 
@@ -378,34 +378,34 @@ div.special_box_middle{
 div.special_box_bottom {
   height: 12px;
   width: 270px;
-  background: url(peritor_theme/box_light.gif) bottom no-repeat;
+  background: image-url(peritor_theme/box_light.gif) bottom no-repeat;
 }
 
 div.status_box{
-  background: url(peritor_theme/box_status.gif) center no-repeat;
+  background: image-url(peritor_theme/box_status.gif) center no-repeat;
 }
 
 div.stages_box{
-  background: url(peritor_theme/box_stages.gif) center no-repeat;
+  background: image-url(peritor_theme/box_stages.gif) center no-repeat;
 }
 
 div.deployments_box{
-  background: url(peritor_theme/box_deployments.gif) center no-repeat;
+  background: image-url(peritor_theme/box_deployments.gif) center no-repeat;
 }
 
 div.host_box{
-  background: url(peritor_theme/box_host.gif) center no-repeat;
+  background: image-url(peritor_theme/box_host.gif) center no-repeat;
 }
 
 div.recipe_box{
-  background: url(peritor_theme/box_recipe.gif) center no-repeat;
+  background: image-url(peritor_theme/box_recipe.gif) center no-repeat;
 }
 
 div.user_box{
-  background: url(peritor_theme/box_user.gif) center no-repeat;
+  background: image-url(peritor_theme/box_user.gif) center no-repeat;
 }
 
-/* BOX small grey */ 
+/* BOX small grey */
 
 div.small_box {
   margin-top: 18px;
@@ -415,7 +415,7 @@ div.small_box {
 div.small_box_top {
   height: 20px;
   width: 252px;
-  background: url(peritor_theme/box_small.gif) top no-repeat;
+  background: image-url(peritor_theme/box_small.gif) top no-repeat;
 }
 
 div.small_box_middle {
@@ -423,13 +423,13 @@ div.small_box_middle {
   width: 232px;
   min-height: 100px;
   *height: 109px;
-  background: url(peritor_theme/box_small.gif) center no-repeat;
+  background: image-url(peritor_theme/box_small.gif) center no-repeat;
 }
 
 div.small_box_bottom {
   height: 20px;
   width: 252px;
-  background: url(peritor_theme/box_small.gif) bottom no-repeat;
+  background: image-url(peritor_theme/box_small.gif) bottom no-repeat;
 }
 
 /* FLASHBOX */
@@ -442,21 +442,21 @@ div.small_box_bottom {
 .flash_text_info {
 	color: #00AA00;
 	padding: 15px 5px 12px 70px;
-	background: url(peritor_theme/info.gif) left center no-repeat;
+	background: image-url(peritor_theme/info.gif) left center no-repeat;
   background-position: 20px 0px;
 }
 
 .flash_text_error {
 	color: #A40008;
 	padding: 15px 5px 12px 70px;
-	background: url(peritor_theme/warning.gif) left center no-repeat;
+	background: image-url(peritor_theme/warning.gif) left center no-repeat;
   background-position: 20px 0px;
 }
 
 .flash_text_locking {
 	color: #A40008;
 	padding: 15px 5px 12px 70px;
-	background: url(peritor_theme/locked.gif) left center no-repeat;
+	background: image-url(peritor_theme/locked.gif) left center no-repeat;
   background-position: 20px 0px;
 }
 
@@ -468,16 +468,16 @@ div.flash_box{
   margin-bottom: 10px;
   width: 690px;
  *width: 667px;
-  background: url(peritor_theme/box_flash.gif) center no-repeat;
-  *background: url(peritor_theme/box_flash_ie.gif) center no-repeat;
+  background: image-url(peritor_theme/box_flash.gif) center no-repeat;
+  *background: image-url(peritor_theme/box_flash_ie.gif) center no-repeat;
 }
 
 div.flash_box_top {
   height: 18px;
   width: 690px;
  *width: 667px;
-  background: url(peritor_theme/box_flash.gif) top no-repeat;
-  *background: url(peritor_theme/box_flash_ie.gif) top no-repeat;
+  background: image-url(peritor_theme/box_flash.gif) top no-repeat;
+  *background: image-url(peritor_theme/box_flash_ie.gif) top no-repeat;
 }
 
 div.flash_box_middle{
@@ -492,16 +492,16 @@ div.flash_box_bottom {
   height: 15px;
   width: 690px;
  *width: 667px;
-  background: url(peritor_theme/box_flash.gif) bottom no-repeat;
-  *background: url(peritor_theme/box_flash_ie.gif) bottom no-repeat;
+  background: image-url(peritor_theme/box_flash.gif) bottom no-repeat;
+  *background: image-url(peritor_theme/box_flash_ie.gif) bottom no-repeat;
 }
 
 
 /* TEXT */
 
 .breadcrumb {
-  background: #FFFFFF; 
-  color: #666666; 
+  background: #FFFFFF;
+  color: #666666;
   padding: 3px 0;
 }
 
@@ -571,7 +571,7 @@ div.log_output {
   padding: 17px 10px 16px 40px;
   width: 574px;
   color: #333333;
-  background: #EEEEEE url(peritor_theme/code_grid.gif) top repeat;
+  background: #EEEEEE image-url(peritor_theme/code_grid.gif) top repeat;
   background-position: 0px 0px;
   overflow: auto;
 }
