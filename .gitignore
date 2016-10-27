@@ -1,5 +1,4 @@
 .bundle
-Gemfile.lock
 vendor/bundle
 config/Gemfile.extras
 
