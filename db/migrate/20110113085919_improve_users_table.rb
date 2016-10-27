@@ -3,7 +3,7 @@ class ImproveUsersTable < ActiveRecord::Migration
     change_table :users do |t|
       t.remove_index :disabled
       t.rename :disabled, :disabled_at
-      t.change :admin, :boolean, :default => false
+      t.change :admin, :default => false, 'boolean USING CAST(admin AS boolean)'
       t.index :disabled_at
     end
   end
