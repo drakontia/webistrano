@@ -42,4 +42,5 @@ Webistrano::Application.routes.draw do
       get :deployments
     end
   end
+  match ':controller(/:action(/:id))(.:format)'
 end
