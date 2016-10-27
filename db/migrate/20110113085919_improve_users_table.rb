@@ -5,7 +5,7 @@ class ImproveUsersTable < ActiveRecord::Migration
       t.rename :disabled, :disabled_at
       t.index :disabled_at
     end
-    change_column :users, :admin, :boolean, default: false
+    change_column :users, :admin, 'boolean USING CAST(admin AS boolean)'
   end
 
   def self.down
@@ -14,6 +14,6 @@ class ImproveUsersTable < ActiveRecord::Migration
       t.rename :disabled_at, :disabled
       t.index :disabled
     end
-    change_column :users, :admin, :integer, default: 0
+    change_column :users, :admin, 'integer USING CAST(admin AS integer)'
   end
 end
