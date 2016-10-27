@@ -5,6 +5,7 @@ config/Gemfile.extras
 tmp/*
 log/*.log*
 db/*.sqlite3
+config/*.yml
 .ruby-version
 
 *~
