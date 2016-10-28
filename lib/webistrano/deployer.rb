@@ -1,7 +1,7 @@
 module Webistrano
   class Deployer
     # Mix-in the Capistrano behavior
-    #include Capistrano::CLI::Execute, Capistrano::CLI::Options
+    include Capistrano::DSL
 
     # holds the capistrano options, see capistrano/lib/capistrano/cli/options.rb
     attr_accessor :options
