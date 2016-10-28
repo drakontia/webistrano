@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
 
   # POST /recipes
   def create
-    @recipe = Recipe.new([recipe_params] || {})
+    @recipe = Recipe.new(recipe_params || {})
 
     respond_to do |format|
       if @recipe.save
@@ -93,7 +93,7 @@ private
     @recipe = Recipe.find_by(id: params[:id])
 
     unless params[:version].blank?
-      recipe_version = @recipe.find_by(version: params[:version])
+      recipe_version = @recipe.find_by(id: params[:id]).where(version: params[:version])
       if recipe_version
         @recipe.version = recipe_version.version
         @recipe.name = recipe_version.name
