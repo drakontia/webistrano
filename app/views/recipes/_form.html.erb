@@ -34,10 +34,10 @@
 <% content_for(:page_scripts) do %>
 <script>
   $(function() {
-    var recipe_body = $('#recipe_body');
-    var preview_output = $('#preview');
+    $('#preview').change(function () {
+      var recipe_body = $('#recipe_body');
+      var preview_output = $('#preview');
 
-    var getPreviewCode = function() {
       $.ajax({
         type: 'GET',
         url: "<%= preview_recipes_url %>",
@@ -46,14 +46,14 @@
           recipe: recipe_body.val()
         },
         dataType: 'html'
-      }).done(function(msg) {
-        preview_output.html(msg);
+        success: function (data) {
+          preview_output.html(data);
+        },
+        error: function (req, status, error) {
+          alert("ERROR:" + error.toString() + " " + status + " " + req.responseText);
+        }
       });
-    };
-
-    window.setInterval(function() {
-      getPreviewCode();
-    }, 1000);
+    });
   });
 </script>
 <% end %>
