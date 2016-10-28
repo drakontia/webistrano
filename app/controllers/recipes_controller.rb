@@ -79,7 +79,7 @@ class RecipesController < ApplicationController
   end
 
   def preview
-    @recipe = Recipe.new(:body => recipe_params)
+    @recipe = Recipe.new(:body => params[:body])
     respond_to do |format|
       format.html { 
         render :partial => "preview", :locals => {:recipe => @recipe}
