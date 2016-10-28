@@ -79,7 +79,7 @@ class RecipesController < ApplicationController
   end
 
   def preview
-    @recipe = Recipe.new(:body => params[:body])
+    @recipe = Recipe.new(:body => recipe_params[:body])
     respond_to do |format|
       format.html { 
         render :partial => "preview", :locals => {:recipe => @recipe}
@@ -93,13 +93,7 @@ private
     @recipe = Recipe.find_by(id: params[:id])
 
     unless params[:version].blank?
-      recipe_version = @recipe.find_by(id: params[:id]).where(version: params[:version])
-      if recipe_version
-        @recipe.version = recipe_version.version
-        @recipe.name = recipe_version.name
-        @recipe.description = recipe_version.description
-        @recipe.body = recipe_version.body
-      end
+      @recipe = @recipe.where(version: params[:version]).find(params[:id])
     end
 
     @recipe
