@@ -33,27 +33,27 @@
 
 <% content_for(:page_scripts) do %>
 <script>
-  $(function() {
-    $('#preview').change(function () {
-      var recipe_body = $('#recipe_body');
-      var preview_output = $('#preview');
+$(document).ready( function() {
+  $('#recipe_body').change(function () {
+    var recipe_body = $('#recipe_body');
+    var preview_output = $('#preview');
 
-      $.ajax({
-        type: 'GET',
-        url: "<%= preview_recipes_url %>",
-        cache: false,
-        data: {
-          recipe: recipe_body.val()
-        },
-        dataType: 'html'
-        success: function (data) {
-          preview_output.html(data);
-        },
-        error: function (req, status, error) {
-          alert("ERROR:" + error.toString() + " " + status + " " + req.responseText);
-        }
-      });
+    $.ajax({
+      type: 'GET',
+      url: "<%= preview_recipes_url %>",
+      cache: false,
+      data: {
+        recipe: recipe_body.val()
+      },
+      dataType: 'html',
+      success: function (data) {
+        preview_output.html(data);
+      },
+      error: function (req, status, error) {
+        alert("ERROR:" + error.toString() + " " + status + " " + req.responseText);
+      }
     });
   });
+});
 </script>
 <% end %>
