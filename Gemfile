@@ -11,10 +11,15 @@ gem "syntax"
 gem "version_fu"
 gem "devise"
 gem "devise-encryptable"
+gem "rails_12factor"
 
 group :development do
   gem "thin"
 
+  gem "capistrano-rails"
+  gem "capistrano-rbenv"
+  gem "capistrano-bundler"
+  gem "capistrano-passenger"
   gem "pry"
   gem "pry-rails"
 end
@@ -32,6 +37,7 @@ end
 
 group :production do
   gem "mysql2"
+  gem "pg"
   gem "unicorn"
 end
 
