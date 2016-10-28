@@ -25,7 +25,7 @@
   <fieldset class="fieldset">
     <legend><%= t("recipe.code_preview") %></legend>
     <div id="preview">
-      <%= render :partial => 'preview', :locals => {:recipe => @recipe} %>
+      <%= render partial: 'preview', locals: { recipe: @recipe } %>
     </div>
   </fieldset>
   <br/>
@@ -35,19 +35,19 @@
 <script>
 $(document).ready( function() {
   $('#recipe_body').change(function () {
-    var recipe_body = $('#recipe_body');
-    var preview_output = $('#preview');
+    var $recipe_body = $('#recipe_body');
+    var $preview_output = $('#preview');
 
     $.ajax({
       type: 'GET',
       url: "<%= preview_recipes_url %>",
       cache: false,
       data: {
-        recipe: recipe_body.val()
+        recipe: $recipe_body.val()
       },
       dataType: 'html',
       success: function (data) {
-        preview_output.html(data);
+        $preview_output.html(data);
       },
       error: function (req, status, error) {
         alert("ERROR:" + error.toString() + " " + status + " " + req.responseText);
