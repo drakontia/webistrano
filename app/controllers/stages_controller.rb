@@ -12,8 +12,17 @@ class StagesController < ApplicationController
   def show
     @stage = current_project.stages.find(params[:id])
     @task_list = [['All tasks: ', '']] + @stage.list_tasks.collect{|task| [task[:name], task[:name]]}.sort()
-    respond_with(@stage)
+
+    respond_with(@stage) do |format|
+      format.html
+      format.text do
+        render
+          filename:     'Capfile'
+          content_type: 'text/plain'
+      end
+    end
   end
+
 
   # GET /projects/1/stages/new
   def new
@@ -21,7 +30,7 @@ class StagesController < ApplicationController
     respond_with(@stage)
   end
 
-  # GET /projects/1/stages/1;edit
+  # GET /projects/1/stages/1/edit
   def edit
     @stage = current_project.stages.find(params[:id])
     respond_with(@stage)
@@ -68,21 +77,6 @@ class StagesController < ApplicationController
     @stage.destroy
 
     respond_with(@stage, :location => current_project, :notice => 'Stage was successfully deleted.')
-  end
-
-  # GET /projects/1/stages/1/capfile
-  def capfile
-    @stage = current_project.stages.find(params[:id])
-
-    respond_with(@stage) do |format|
-      format.text do
-        send_file_headers! \
-               :disposition  => "attachment",
-               :filename     => 'Capfile.rb'
-        render :layout       => false,
-               :content_type => 'text/plain'
-      end
-    end
   end
 
   # GET | PUT /projects/1/stages/1/recipes
