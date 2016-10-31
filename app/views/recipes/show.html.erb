@@ -27,7 +27,7 @@
       <%= select_tag "version", options_for_select(all_recipe_versions, params[:version]), id: "recipe_version" %>
       <%= link_to t("recipe.show"), id: "recipe_show", class: "arrow_link" %>
       <%= javascript_tag do %>
-        $(function() {
+        $(document).on('page:change', function() {
           $("#recipe_show").click(function() {
             location.href = location.href + '?version=' + $('#recipe_version').val();
             return false;
