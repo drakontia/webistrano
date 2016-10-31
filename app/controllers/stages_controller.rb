@@ -15,10 +15,6 @@ class StagesController < ApplicationController
 
     respond_with(@stage) do |format|
       format.html
-      format.text do
-        render filename:     'Capfile',
-               content_type: 'text/plain'
-      end
     end
   end
 
@@ -76,6 +72,18 @@ class StagesController < ApplicationController
     @stage.destroy
 
     respond_with(@stage, :location => current_project, :notice => 'Stage was successfully deleted.')
+  end
+
+  # GET /projects/1/stages/1/Capfile
+  def capfile
+    @stage = current_project.stages.find(params[:id])
+
+    respond_with(@stage) do |format|
+      format.text do
+        render filename: 'Capfile',
+               type: :text
+      end
+    end
   end
 
   # GET | PUT /projects/1/stages/1/recipes
