@@ -7,9 +7,9 @@ require 'sshkit'
 require 'sshkit/dsl'
 include SSHKit::DSL
 require 'capistrano'
+require 'capistrano/configuration'
 require 'capistrano/setup'
 require 'capistrano/deploy'
-require 'capistrano/configuration'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
