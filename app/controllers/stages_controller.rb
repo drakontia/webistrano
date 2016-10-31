@@ -1,5 +1,5 @@
 class StagesController < ApplicationController
-  respond_to :html, :xml, :json
+  respond_to :html, :xml, :json, :text
   before_filter :load_project
 
   # GET /projects/1/stages.xml
