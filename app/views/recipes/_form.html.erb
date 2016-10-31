@@ -33,7 +33,7 @@
 
 <% content_for(:page_scripts) do %>
 <%= javascript_tag do %>
-$(document).on('page:change', function() {
+$(document).on('page:load', function() {
   $('#recipe_body').change(function () {
     $.ajax({
       type: 'GET',

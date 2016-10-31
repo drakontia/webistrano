@@ -15,10 +15,10 @@
   <h2><%= t("manage_recipes.title") %></h2>
 <% end %>
 
-<%= form_for @stage, url: recipes_project_stage_path(@project, @stage), html: {method: :put} do |f| %>  
+<%= form_for @stage, url: recipes_project_stage_path(@project, @stage), html: {method: :put} do |f| %>
   <fieldset class="fieldset">
     <legend><%= t("manage_recipes.recipes_to_use") %></legend>
-    
+
     <% if Recipe.count > 0 %>
       <table class="sortable">
         <thead>
@@ -28,7 +28,7 @@
             <th width="60%"><%= t("recipe.description") %></th>
           </tr>
         </thead>
-        <% for recipe in Recipe.find(:all, :order => 'name ASC') %>
+        <% for recipe in Recipe.order(name: :asc) %>
           <tr class="<%= cycle :even, :odd, :name => 'recipes'  %>">
             <td><input type="checkbox" value="<%= recipe.id %>" name="stage[recipe_ids][]" id="stage_recipe_ids_<%= recipe.id %>" <%= @stage.recipes.include?(recipe) ? 'checked="checked"' : '' %>/></td>
             <td><%= link_to recipe.name, recipe_path(recipe) %></td>
@@ -43,7 +43,7 @@
     <% else %>
       <%= t("manage_recipes.none") %><br /><br />
     <% end %>
-  </fieldset>    
+  </fieldset>
 <% end %>
 
 <br />
