@@ -16,9 +16,8 @@ class StagesController < ApplicationController
     respond_with(@stage) do |format|
       format.html
       format.text do
-        render
-          filename:     'Capfile'
-          content_type: 'text/plain'
+        render filename:     'Capfile',
+               content_type: 'text/plain'
       end
     end
   end
@@ -84,8 +83,7 @@ class StagesController < ApplicationController
     @stage = current_project.stages.find(params[:id])
     if request.put?
       @stage.recipe_ids = params[:stage][:recipe_ids] rescue []
-      flash[:notice] = "Stage recipes successfully updated."
-      redirect_to project_stage_url(current_project, @stage)
+      redirect_to project_stage_url(current_project, @stage), notice: "Stage recipes successfully updated."
     else
       respond_to do |format|
         format.html { render }
