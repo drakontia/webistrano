@@ -6,9 +6,9 @@ load 'deploy'
 
 <% @stage.roles.each do |role| %>
   <% if role.role_attribute_hash.blank? -%>
-  role :<%= role.name %>, <%= raw capfile_cast(role.hostname_and_port) %>
+  role <%= role.name.to_sym %>, <%= raw capfile_cast(role.hostname_and_port) %>
   <% else -%>
-  role :<%= role.name %>, <%=  raw capfile_cast(role.hostname_and_port) %>, <%= raw role.role_attribute_hash.inspect %>
+  role <%= role.name.to_sym %>, <%=  raw capfile_cast(role.hostname_and_port) %>, <%= raw role.role_attribute_hash.inspect %>
   <% end -%>
 <% end %>
 
@@ -21,11 +21,11 @@ load 'deploy'
   set :webistrano_stage, <%= raw capfile_cast(@stage.webistrano_stage_name) %>
 
 <% @stage.non_prompt_configurations.each do |effective_conf| %>
-  set :<%= effective_conf.name.to_sym %>, <%= raw capfile_cast(effective_conf.value) %>
+  set <%= effective_conf.name.to_sym %>, <%= raw capfile_cast(effective_conf.value) %>
 <% end %>
 
 <% @stage.prompt_configurations.each do |conf| %>
-  set(:<%= conf.name %>) do
+  set(<%= conf.name.to_sym %>) do
     Capistrano::CLI.ui.ask "Please enter '<%= conf.name.to_sym %>': "
   end
 <% end %>
