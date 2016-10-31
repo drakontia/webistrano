@@ -1,5 +1,3 @@
-require 'capistrano/dsl'
-
 module Webistrano
   class Deployer
     # Mix-in the Capistrano behavior
