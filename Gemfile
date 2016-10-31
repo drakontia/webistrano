@@ -43,6 +43,7 @@ end
 
 group :assets do
   gem "jquery-rails"
+  gem "turbolinks"
   gem "uglifier"
   gem 'therubyracer'
 end
