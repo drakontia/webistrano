@@ -6,6 +6,7 @@ require 'rails/all'
 require 'sshkit'
 require 'sshkit/dsl'
 include SSHKit::DSL
+require 'capistrano'
 require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/configuration'
