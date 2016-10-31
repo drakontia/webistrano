@@ -24,13 +24,21 @@
     </div>
     <br/>
     <div style="margin-bottom: 10px">
-      <%= select_tag "version", options_for_select(all_recipe_versions, params[:version]), :id => "recipe_version" %>
-      <%= link_to_function t("recipe.show"), "location.href='#{recipe_path(@recipe)}?version=' + $('#recipe_version').val()", :id => "recipe_show", :class => "arrow_link" %>
-      <%= link_to t("recipe.rollback"), edit_recipe_path(@recipe, :version => params[:version]), :class => "arrow_link" if not_latest_version and current_user.admin? %>
+      <%= select_tag "version", options_for_select(all_recipe_versions, params[:version]), id: "recipe_version" %>
+      <%= link_to t("recipe.show"), id: "recipe_show", class: "arrow_link" %>
+      <%= javascript_tag do %>
+        $(function() {
+          $("#recipe_show").click(function() {
+            location.href = location.href + '?version=' + $('#recipe_version').val();
+            return false;
+          });
+        });
+      <% end %>
+      <%= link_to t("recipe.rollback"), edit_recipe_path(@recipe, :version => params[:version]), class: "arrow_link" if not_latest_version and current_user.admin? %>
     </div>
     <% if current_user.admin? %>
-      <%= link_to t("recipe.edit_latest"), edit_recipe_path(@recipe), :class => 'arrow_link' %> |
-      <%= link_to t("recipe.delete_all"), recipe_path(@recipe), :confirm => 'Are you sure?', :method => :delete, :class => 'arrow_link' %>
+      <%= link_to t("recipe.edit_latest"), edit_recipe_path(@recipe), class: 'arrow_link' %> |
+      <%= link_to t("recipe.delete_all"), recipe_path(@recipe), data: { confirm: 'Are you sure?'}, :method => :delete, class: 'arrow_link' %>
     <% end %>
   </div>
   <div class="box_bottom"></div>
@@ -43,7 +51,7 @@
   <legend><%= t("recipe.description") %></legend>
   <p><%= raw web_friendly_text @recipe.description %></p>
   <br />
-  <%= link_to t("edit"), edit_recipe_path(@recipe), :class => 'arrow_link' %>
+  <%= link_to t("edit"), edit_recipe_path(@recipe), class: 'arrow_link' %>
 </fieldset>
 
 <fieldset class="fieldset">
