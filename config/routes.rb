@@ -11,7 +11,7 @@ Webistrano::Application.routes.draw do
     resources :stages do
       member do
         get :tasks
-        get :capfile
+        get :show
         get :recipes
         put :recipes
       end
