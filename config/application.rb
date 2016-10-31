@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 # Pick the frameworks you want:
 require 'open4'
 require 'rails/all'
+require 'rake'
 require 'sshkit'
 require 'sshkit/dsl'
 include SSHKit::DSL
