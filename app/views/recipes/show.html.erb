@@ -28,8 +28,8 @@
       <%= link_to t("recipe.show"), '#', id: "recipe_show", class: "arrow_link" %>
       <%= javascript_tag do %>
         $(document).on('page:change', function() {
-          $("#recipe_show").click(function() {
-            location.href = location.href + '?version=' + $('#recipe_version').val();
+          $("#recipe_version").change(function() {
+            $('#recipe_show').href = location.href + '?version=' + $('#recipe_version').val();
             return false;
           });
         });

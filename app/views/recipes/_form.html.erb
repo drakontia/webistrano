@@ -32,22 +32,19 @@
 </div>
 
 <% content_for(:page_scripts) do %>
-<script>
-$(document).ready( function() {
+<%= javascript_tag do %>
+$(document).on('page:change', function() {
   $('#recipe_body').change(function () {
-    var $recipe_body = $('#recipe_body');
-    var $preview_output = $('#preview');
-
     $.ajax({
       type: 'GET',
       url: "<%= preview_recipes_url %>",
       cache: false,
       data: {
-        recipe: $recipe_body.val()
+        body: $('#recipe_body').val()
       },
       dataType: 'html',
       success: function (data) {
-        $preview_output.html(data);
+        $('#preview').html(data);
       },
       error: function (req, status, error) {
         alert("ERROR:" + error.toString() + " " + status + " " + req.responseText);
@@ -55,5 +52,5 @@ $(document).ready( function() {
     });
   });
 });
-</script>
+<% end %>
 <% end %>
