@@ -25,7 +25,7 @@
     <br/>
     <div style="margin-bottom: 10px">
       <%= select_tag "version", options_for_select(all_recipe_versions, params[:version]), id: "recipe_version" %>
-      <%= link_to t("recipe.show"), id: "recipe_show", class: "arrow_link" %>
+      <%= link_to t("recipe.show"), '#', id: "recipe_show", class: "arrow_link" %>
       <%= javascript_tag do %>
         $(document).on('page:change', function() {
           $("#recipe_show").click(function() {

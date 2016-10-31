@@ -6,6 +6,7 @@
     <%= csrf_meta_tags %>
     <link rel="shortcut icon" href="/favicon.ico" />
     <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag "application" %>
   </head>
   <body>
     <div id="app_top">
@@ -52,7 +53,6 @@
       Copyright &copy; 2007, 2008, 2009 | Version <%= WEBISTRANO_VERSION %> | <a href="http://labs.peritor.com/webistrano" target="_blank">http://labs.peritor.com/webistrano</a>
     </div>
 
-    <%= javascript_include_tag "application" %>
     <%= yield :page_scripts %>
   </body>
 </html>
