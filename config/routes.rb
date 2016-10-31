@@ -12,7 +12,7 @@ Webistrano::Application.routes.draw do
       member do
         get :tasks
         get :show
-        get ':id/Capfile', to: 'stages#capfile'
+        get 'Capfile', to: 'stages#capfile'
         get :recipes
         put :recipes
       end
