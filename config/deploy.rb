@@ -30,7 +30,7 @@ append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/webis
 # append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system'
 
 # Default value for default_env is {}
-set :default_env, { path: "/root/.rbenv/shims:/root/.rbenv/bin::$PATH" }
+set :default_env, { path: "/root/.rbenv/shims:/root/.rbenv/bin:/usr/local/bin:$PATH" }
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5

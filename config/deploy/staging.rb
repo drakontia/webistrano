@@ -3,7 +3,7 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server 'direct.drakontia.com', user: 'deploy', roles: %w{app}, my_property: :my_value
+# server 'direct.drakontia.com', user: 'deploy', roles: %w{app}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
@@ -54,18 +54,18 @@ server 'direct.drakontia.com',
   roles: %w{app},
   ssh_options: {
     user: 'mhden', # overrides user setting above
-    keys: %w(/root/.ssh/rakontia.com_rsa),
+    keys: %w(/root/.ssh/kvm00264529),
     forward_agent: false,
     auth_methods: %w(publickey password)
     # password: 'please use keys'
   }
 
-set :rbenv_type, :user # or :system, depends on your rbenv setup
-#set :rbenv_ruby, '2.0.0'
+# set :rbenv_type, :system # or :system, depends on your rbenv setup
+# set :rbenv_ruby, '2.0.0'
 
 # in case you want to set ruby version from the file:
-set :rbenv_ruby, File.read('.ruby-version').strip
+# set :rbenv_ruby, File.read('.ruby-version').strip
 
-set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
-set :rbenv_roles, :all # default value
+# set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+# set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+# set :rbenv_roles, :all # default value
