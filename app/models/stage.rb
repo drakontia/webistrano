@@ -1,11 +1,11 @@
-class Stage < ActiveRecord::Base  
+class Stage < ActiveRecord::Base
   belongs_to :project
   has_and_belongs_to_many :recipes
   has_many :roles, -> { order("name ASC") }, :dependent => :destroy
   has_many :hosts, -> { uniq }, :through => :roles
   has_many :configuration_parameters, -> { order("name ASC") }, :dependent => :destroy, :class_name => "StageConfiguration"
   has_many :deployments, -> { order("created_at DESC") }, :dependent => :destroy
-  belongs_to :locking_deployment, :class_name => 'Deployment', :foreign_key => :locked_by_deployment_id 
+  belongs_to :locking_deployment, :class_name => 'Deployment', :foreign_key => :locked_by_deployment_id
 
   validates :name, :presence => true, :uniqueness => {:scope => :project_id}, :length => {:maximum => 250}
   validates :project, :presence => true
@@ -22,7 +22,7 @@ class Stage < ActiveRecord::Base
   end
 
   # returns an array of ConfigurationParameters that is a result of the projects configuration overridden by the stage config 
-  def effective_configuration(key=nil) 
+  def effective_configuration(key=nil)
     project_configs = self.project.configuration_parameters.dup
     my_configs = self.configuration_parameters.dup
 
@@ -90,7 +90,7 @@ class Stage < ActiveRecord::Base
   end
 
   def recent_deployments(limit=3)
-    self.deployments.find(:all, :limit => limit, :order => 'deployments.created_at DESC')
+    self.deployments.order(deployments.created_at: :desc).limit(limit)
   end
 
   # returns a better form of the stage name for use inside Capistrano recipes

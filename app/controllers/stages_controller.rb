@@ -81,7 +81,7 @@ class StagesController < ApplicationController
     respond_with(@stage) do |format|
       format.text do
         render filename: 'Capfile',
-               type: :text
+               content_type: 'text/plain'
       end
     end
   end
