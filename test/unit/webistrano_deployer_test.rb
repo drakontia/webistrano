@@ -1,7 +1,6 @@
 require 'test_helper'
-require 'mocha/mini_test'
 
-class Webistrano::DeployerTest < ActiveSupport::TestCase
+class Webistrano::DeployerTest < ActionController::TestCase
 
   def setup
     @project = FactoryGirl.create(:project, :template => 'pure_file')

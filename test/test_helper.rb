@@ -20,6 +20,7 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   #
+  include Devise::TestHelpers
 
   def prepare_email
     ActionMailer::Base.delivery_method = :test
