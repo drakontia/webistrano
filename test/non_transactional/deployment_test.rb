@@ -1,4 +1,6 @@
-class NonTransactionalDeploymentTest < Test::Unit::TestCase
+require 'test_helper'
+
+class NonTransactionalDeploymentTest < ActiveSupport::TestCase
 
   def setup
     User.destroy_all

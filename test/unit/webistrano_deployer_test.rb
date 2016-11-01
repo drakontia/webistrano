@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'mocha/test_unit'
+require 'mocha/mini_test'
 
 class Webistrano::DeployerTest < ActiveSupport::TestCase
 

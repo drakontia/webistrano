@@ -69,7 +69,7 @@ class DeploymentsController < ApplicationController
 
     rescue => e
       flash[:error] = "Cancelling failed: #{e.message}"
-      @deployment.errors.add("base", e.message)
+      Deployment.errors.add("base", e.message)
       respond_with(@deployment, :location => [@project, @stage, @deployment])
     end
   end

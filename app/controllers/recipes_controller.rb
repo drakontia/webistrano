@@ -93,7 +93,7 @@ private
     @recipe = Recipe.find_by(id: params[:id])
 
     unless params[:version].blank?
-      @recipe = @recipe.where(version: params[:version]).find(params[:id])
+      @recipe = Recipe.where(version: params[:version]).find(params[:id])
     end
 
     @recipe
