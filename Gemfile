@@ -39,6 +39,7 @@ group :production do
   gem "mysql2"
   gem "pg"
   gem "unicorn"
+  gem "puma"
 end
 
 group :assets do
