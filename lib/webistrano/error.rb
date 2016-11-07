@@ -1,5 +1,3 @@
 module Webistrano
-  class Errors
-    class NotFound < StandardError; end
-  end
+  class Error < StandardError; end
 end
