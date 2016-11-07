@@ -1,7 +1,9 @@
 module Webistrano
   class Deployer
     # Mix-in the Capistrano behavior
-    include Capistrano::DSL
+    #include Capistrano::DSL
+    include Capistrano::CLI::Execute
+    include Capistrano::CLI::Options
 
     # holds the capistrano options, see capistrano/lib/capistrano/cli/options.rb
     attr_accessor :options
@@ -29,7 +31,7 @@ module Webistrano
         validate
       else
         # a fake deployment in order to access tasks
-        #@logger = Capistrano::Logger.new
+        @logger = Capistrano::Logger.new
       end
     end
 
@@ -289,12 +291,11 @@ module Webistrano
     # returns a list of all tasks defined for this deployer
     def list_tasks
       config = instantiate_configuration
-      #config.load 'deploy'
+      config.load 'deploy'
 
-      #set_up_config(config)
+      set_up_config(config)
 
-      #config.task_list(:all)
-      Rake::Task.tasks
+      config.task_list(:all)
     end
 
   end
