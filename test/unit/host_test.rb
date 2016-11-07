@@ -36,13 +36,13 @@ class HostTest < ActiveSupport::TestCase
     assert h.valid?
   end
 
-  test "validation_of_name_if_ip" do
+  test "validation of name if ip" do
     # some valid IPs
     assert valid_host_name('192.168.0.1  ')
     assert valid_host_name(' 192.168.0.110')
   end
 
-  test "validation_of_name_if_domain_name" do
+  test "validation of name if domain name" do
     assert valid_host_name('map.example.com')
     assert valid_host_name('web12.example.com')
     assert valid_host_name('localhost')

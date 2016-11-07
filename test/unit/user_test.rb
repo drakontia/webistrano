@@ -5,14 +5,14 @@ class UserTest < ActiveSupport::TestCase
   # Then, you can remove it from this and the functional test.
   fixtures :users
 
-  test "should_create_user" do
+  test "should create user" do
     assert_difference 'User.count' do
       user = FactoryGirl.create(:user)
       assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
     end
   end
 
-  test "admin" do
+  test "should create admin" do
     user = FactoryGirl.create(:user)
     assert !user.admin?
 
@@ -26,7 +26,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.admin?
   end
 
-  test "revert_admin_status_only_if_other_admins_left" do
+  test "revert admin status only if other admins left" do
     User.delete_all
 
     admin = FactoryGirl.create(:user)
@@ -42,7 +42,7 @@ class UserTest < ActiveSupport::TestCase
     }
   end
 
-  test "recent_deployments" do
+  test "should have recent deployments" do
     user = FactoryGirl.create(:user)
     stage = FactoryGirl.create(:stage)
     role = FactoryGirl.create(:role, :stage => stage)
@@ -55,7 +55,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 2, user.deployments.recent(2).length
   end
 
-  test "disable" do
+  test "make user to be disable" do
     user = FactoryGirl.create(:user)
     assert !user.disabled?
 
@@ -68,11 +68,11 @@ class UserTest < ActiveSupport::TestCase
     assert !user.disabled?
   end
 
-  test "disable_resets_remember_me" do
+  test "should be disable to reset remember me" do
     user = FactoryGirl.create(:user)
     user.remember_me!
 
-    assert_equal false, user.remember_expired?
+    assert user.remember_created_at?
 
     user.disable!
     user.reload
@@ -80,7 +80,7 @@ class UserTest < ActiveSupport::TestCase
     assert user.remember_created_at.blank?
   end
 
-  test "enabled_named_scope" do
+  test "should be enable for named scope" do
     User.destroy_all
     assert_equal [], User.enabled
     assert_equal [], User.disabled

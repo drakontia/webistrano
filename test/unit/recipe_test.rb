@@ -11,9 +11,9 @@ class RecipeTest < ActiveSupport::TestCase
       )
     }
   end
-  
+
   test "validation" do
-    
+
     # missing name
     recipe = Recipe.new(
       :name => nil,
@@ -21,7 +21,7 @@ class RecipeTest < ActiveSupport::TestCase
       :body => "set :config_files, 'database.yml' "
     )
     assert !recipe.valid?
-    
+
     # missing body
     recipe = Recipe.new(
       :name => 'Copy Tasks',
@@ -29,7 +29,7 @@ class RecipeTest < ActiveSupport::TestCase
       :body => nil
     )
     assert !recipe.valid?
-    
+
     # name too long
     recipe = Recipe.new(
       :name => 'Copy Config files' * 100,
@@ -37,11 +37,11 @@ class RecipeTest < ActiveSupport::TestCase
       :body => "set :config_files, 'database.yml' "
     )
     assert !recipe.valid?
-    
+
     # fix name and save
     recipe.name = 'Copy'
     recipe.save!
-    
+
     # name not unique
     recipe = Recipe.new(
       :name => 'Copy',
@@ -58,14 +58,14 @@ class RecipeTest < ActiveSupport::TestCase
     assert !recipe.valid?
     assert_include "syntax error at line: 1", recipe.errors[:body]
   end
-  
+
   test "validate_valid_syntax_on_create" do
     recipe = Recipe.create(:name => "Copy Config files",
                            :description => "Recipe body intentionally erronous",
                            :body => "set :config_files, 'database.yml'")
     assert_empty recipe.errors[:body]
   end
-  
+
   test "validate_with_open4_error" do
     Open4.expects(:popen4).raises(RuntimeError)
     recipe = Recipe.create(:name => "Copy Config files",
