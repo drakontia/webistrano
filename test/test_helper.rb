@@ -20,8 +20,6 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   #
-  include Devise::TestHelpers
-
   def prepare_email
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
@@ -29,20 +27,7 @@ class ActiveSupport::TestCase
     return ActionMailer::Base.deliveries
   end
 
-
   # Add more helper methods to be used by all tests here...
-  def login(user=nil)
-    user ||= FactoryGirl.create(:user)
-    sign_in(user, scope: :user)
-    return user
-  end
-
-  def admin_login(user=nil)
-    admin = login(user)
-    admin.make_admin!
-    return admin
-  end
-
   def assert_include(expected, value)
     assert_kind_of Array, value
     assert value.include?(expected)
@@ -62,6 +47,19 @@ end
 
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
+
+  def login(user=nil)
+    user ||= FactoryGirl.create(:user)
+    sign_in(user, scope: :user)
+    return user
+  end
+
+  def admin_login(user=nil)
+    admin = login(user)
+    admin.make_admin!
+    return admin
+  end
+
 
   def setup
     DatabaseCleaner.start
