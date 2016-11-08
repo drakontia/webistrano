@@ -4,7 +4,7 @@ require 'deployments_controller'
 # Re-raise errors caught by the controller.
 class DeploymentsController; def rescue_action(e) raise e end; end
 
-class NonTransactionalDeploymentsControllerTest < ActiveSupport::TestCase
+class NonTransactionalDeploymentsControllerTest < ActionController::TestCase
   def setup
     Project.destroy_all
     @controller = DeploymentsController.new
