@@ -1,10 +1,10 @@
 ENV["RAILS_ENV"] = "test"
 
-require "mocha/setup"
-require "mocha/mini_test"
-
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+
+require "mocha/setup"
+require "mocha/mini_test"
 
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
