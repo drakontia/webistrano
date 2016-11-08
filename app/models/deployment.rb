@@ -19,7 +19,7 @@ class Deployment < ActiveRecord::Base
   validates :task, :stage, :user, :presence => true
   validates :task, :length => {:maximum => 250}
   validates :status, :inclusion => {:in => STATUS_VALUES}
-  #validate :guard_readiness_of_stage, :on => :create # TODO
+  validate :guard_readiness_of_stage, :on => :create # TODO
 
   serialize :excluded_host_ids
 
@@ -34,7 +34,7 @@ class Deployment < ActiveRecord::Base
       d = Deployment.new
       block.call(d)
       return false unless d.valid?
-      stage = Stage.find(d.stage_id, :lock => true)
+      stage = Stage.where(locked: 1).find_by_id(d.stage_id)
       stage.lock
       d.save!
       stage.lock_with(d)
@@ -57,7 +57,7 @@ class Deployment < ActiveRecord::Base
   def effective_and_prompt_config
     @effective_and_prompt_config = @effective_and_prompt_config || self.stage.effective_configuration.collect do |conf|
       if prompt_config.has_key?(conf.name)
-        conf.value = prompt_config[conf.name] 
+        conf.value = prompt_config[conf.name]
       end
       conf
     end
@@ -200,7 +200,7 @@ protected
 
   def notify_per_mail
     self.stage.emails.each do |email|
-      Notification.deployment(self, email).deliver_now
+      NotificationMailer.deployment(self, email).deliver_now
     end
   end
 
