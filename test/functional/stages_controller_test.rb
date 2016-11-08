@@ -91,13 +91,13 @@ class StagesControllerTest < ActionController::TestCase
     assert_match "foobar here", @response.body
   end
 
-  test "should_show_stage_tasks" do
+  test "should show stage tasks" do
     get :tasks, :id => @stage.id, :project_id => @project.id
     assert_response :success
     assert_match /webistrano:mongrel:start/, @response.body
   end
 
-  test "should_render_xml_for_stage_tasks" do
+  test "should render xml for stage tasks" do
     get :tasks, :id => @stage.id, :project_id => @project.id, :format => "xml"
     assert_response :success
     assert_match /webistrano:mongrel:start/, @response.body
