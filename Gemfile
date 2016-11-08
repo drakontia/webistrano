@@ -11,6 +11,10 @@ gem "syntax"
 gem "version_fu"
 gem "devise"
 gem "devise-encryptable"
+gem "jquery-rails"
+gem "turbolinks"
+gem "uglifier"
+gem 'therubyracer', :platforms => :ruby
 
 group :development do
   gem "pry"
@@ -32,13 +36,6 @@ group :production do
   gem "pg"
   gem "puma"
   gem "rails_12factor"
-end
-
-group :assets do
-  gem "jquery-rails"
-  gem "turbolinks"
-  gem "uglifier"
-  gem 'therubyracer', :platforms => :ruby
 end
 
 if File.exists?('config/Gemfile.extras')
