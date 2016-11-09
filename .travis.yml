@@ -3,8 +3,11 @@ rvm:
   - 2.2
   - 2.3.0
 cache: bundler
+servises:
+  - mysql
 before_script:
   - cp config/database.yml.travis config/database.yml
+  - mysql -e 'create database webistrano_test;'
 script:
   - bin/rake db:migrate RAILS_ENV=test
   - bundle exec rake test
