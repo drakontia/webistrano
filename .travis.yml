@@ -1,6 +1,14 @@
-nguage: ruby
+language: ruby
 rvm:
   - 2.3.0
   - 2.2
 script: bundle exec rake test
 cache: bundler
+services:
+  - postgresql
+install:
+  - bundle install --without development
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - bundle exec rake db:create db:migrate
