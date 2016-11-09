@@ -6,8 +6,6 @@ script: bundle exec rake test
 cache: bundler
 services:
   - postgresql
-install:
-  - bundle install --without development
 before_script:
   - cp config/database.yml.travis config/database.yml
   - psql -c 'create database travis_ci_test;' -U postgres
