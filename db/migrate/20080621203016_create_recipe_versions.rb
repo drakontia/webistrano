@@ -5,7 +5,7 @@ class CreateRecipeVersions < ActiveRecord::Migration
       t.string  :name
       t.text    :body
       t.text    :description
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

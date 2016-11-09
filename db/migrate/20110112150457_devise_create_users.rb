@@ -4,7 +4,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string    :login
       t.integer   :admin, :default => 0
       t.string    :time_zone, :default => 'UTC'
-      t.timestamp :disabled
+      t.timestamp :disabled, null: false
 
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
@@ -23,7 +23,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :users, :disabled
