@@ -1,6 +1,6 @@
 #Webistrano - Capistrano deployment the easy way
 
-
+[![Build Status](https://travis-ci.org/drakontia/webistrano.svg?branch=staging)](https://travis-ci.org/drakontia/webistrano)
 
 ##About
   Webistrano is a Web UI for managing Capistrano deployments.
