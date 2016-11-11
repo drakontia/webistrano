@@ -11,7 +11,6 @@ require "codeclimate-test-reporter"
 SimpleCov.start do
   add_filter "/vendor/"
 end
-CodeClimate::TestReporter.start
 
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
