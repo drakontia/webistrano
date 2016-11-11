@@ -1,6 +1,6 @@
 #Webistrano - Capistrano deployment the easy way
 
-[![Build Status](https://travis-ci.org/drakontia/webistrano.svg?branch=staging)](https://travis-ci.org/drakontia/webistrano)
+[![Build Status](https://travis-ci.org/drakontia/webistrano.svg?branch=staging)](https://travis-ci.org/drakontia/webistrano)[![Code Climate](https://codeclimate.com/github/drakontia/webistrano/badges/gpa.svg)](https://codeclimate.com/github/drakontia/webistrano)[![Test Coverage](https://codeclimate.com/github/drakontia/webistrano/badges/coverage.svg)](https://codeclimate.com/github/drakontia/webistrano/coverage)
 
 ##About
   Webistrano is a Web UI for managing Capistrano deployments.

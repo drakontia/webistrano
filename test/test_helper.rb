@@ -5,6 +5,13 @@ require 'rails/test_help'
 
 require "mocha/setup"
 require "mocha/mini_test"
+require "simplecov"
+require "codeclimate-test-reporter"
+
+SimpleCov.start do
+  add_filter "/vendor/"
+end
+CodeClimate::TestReporter.start
 
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation

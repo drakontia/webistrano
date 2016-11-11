@@ -25,6 +25,8 @@ group :test do
   gem "mocha", :require => false
   gem "factory_girl_rails"
   gem "database_cleaner"
+  gem "simplecov"
+  gem "codeclimate-test-reporter", "~> 1.0.0", require: nil
 end
 
 group :development, :test do
